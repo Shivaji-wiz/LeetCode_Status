@@ -1,12 +1,15 @@
-class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        mx = 0
-        mini = prices[0]
-        n = len(prices)
-        for i in range(0,n):
-            
-            mini = min(mini,prices[i])
-            profit = prices[i] - mini
-            mx = max(mx,profit)
-        return mx
-        
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int mx = 0;
+        int mini = prices[0];
+        int profit;
+        int n = prices.size();
+        for(int i = 0;i<n;i++){
+            mini = min(mini,prices[i]);
+            profit = prices[i] - mini;
+            mx = max(mx,profit);
+        }
+       return mx; 
+    }
+};
