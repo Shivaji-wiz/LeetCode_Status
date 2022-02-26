@@ -1,21 +1,18 @@
-class Solution {
-public:
-    bool isValidSudoku(vector<vector<char>>& board) {
-        int r = board.size();
-        int c = board[0].size();
-        
-        unordered_map<char,int>rows[9];
-        unordered_map<char,int>cols[9];
-        unordered_map<char,int>boxes[9];
-        
-        for(int i = 0;i<r;i++){
-            for(int j = 0;j<c;j++){
-                char ch = board[i][j];
-                
-                if(ch!='.' && (rows[i][ch]++ > 0 || cols[j][ch]++ > 0 || boxes[i/3*3+j/3][ch]++ > 0))
-                    return false;
-            }
-        }
-        return true;
-    }
-};
+class Solution(object):
+    
+    def isValidSudoku(self, board):
+        # board=list(map(str,board))
+        seen=set()
+        for i in range(9):
+            for j in range(9):
+                if board[i][j]!='.':
+                    if ('r'+str(i)+board[i][j]) in seen or ('c'+str(j)+board[i][j]) in seen or (('b'+str((i//3)*3+    (j//3)))+board[i][j]) in seen:
+                        return False
+                    else:
+                        seen.add('r'+str(i)+board[i][j])
+                        seen.add('c'+str(j)+board[i][j])
+                        seen.add(('b'+str((i//3)*3+(j//3)))+board[i][j])
+        return True
+                    
+            
+   
