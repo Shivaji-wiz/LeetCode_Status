@@ -12,8 +12,19 @@
 class Solution {
 public:
     int sumOfLeftLeaves(TreeNode* root) {
-        if(!root) return 0;
-        if(root->left && !root->left->left and !root->left->right) return root->left->val + sumOfLeftLeaves(root->right);
-        return sumOfLeftLeaves(root->left) + sumOfLeftLeaves(root->right);       
+        stack<TreeNode*> stk;
+        stk.push(root);
+        int total = 0;
+        while(stk.empty() != true){
+            TreeNode* temp = stk.top();
+            stk.pop();
+            if(temp->left != NULL and temp->left->left == NULL and temp->left->right == NULL)
+            {
+                total += temp->left->val;
+            }
+            if(temp->right != NULL) stk.push(temp->right);
+            if(temp->left != NULL) stk.push(temp->left);
+        }
+        return total;        
     }
 };
