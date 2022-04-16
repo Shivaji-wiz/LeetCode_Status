@@ -12,20 +12,28 @@
 class Solution {
 public:
     int sum = 0;
-    TreeNode* convertBST(TreeNode* root) {
+    vector<TreeNode*>in;
+    
+    void inorder(TreeNode *root){
+        if(!root) return ;
         
-        if(root==NULL){
-            return NULL;
+        if(root->right){
+            inorder(root->right);
         }
         
-        convertBST(root->right);
+        in.push_back(root);
         
-        sum += root->val;
-        root->val = sum;
+        if(root->left){
+            inorder(root->left);
+        }
+    }
+    TreeNode* convertBST(TreeNode* root) {
+        inorder(root);
         
-        convertBST(root->left);
-        
+        for(auto i:in){
+            i->val += sum;
+            sum = i->val;
+        }
         return root;
-        
     }
 };
