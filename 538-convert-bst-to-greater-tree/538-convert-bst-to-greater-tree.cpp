@@ -11,37 +11,21 @@
  */
 class Solution {
 public:
-    
-    int sum=0;
-    int prevSum=0;
-    
-    void findSum(TreeNode* root)
-    {
-        if(root==NULL)
-            return;
-        
-        sum+=root->val;
-        findSum(root->left);
-        findSum(root->right);
-        
-    }
-    
-    void modify(TreeNode* root)
-    {
-        if(root==NULL)
-            return;
-        
-        modify(root->left);
-        int k=root->val;
-        root->val=sum-prevSum;
-        prevSum+=k;
-        modify(root->right);
-    }
-    
+    int sum = 0;
     TreeNode* convertBST(TreeNode* root) {
         
-        findSum(root);
-        modify(root);
+        if(root==NULL){
+            return NULL;
+        }
+        
+        convertBST(root->right);
+        
+        sum += root->val;
+        root->val = sum;
+        
+        convertBST(root->left);
+        
         return root;
+        
     }
 };
