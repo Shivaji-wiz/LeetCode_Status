@@ -1,27 +1,28 @@
-class MyHashSet:
+class MyHashSet {
+public:
+    vector<bool>TF;
+    MyHashSet() {
+        const int n = 1000001;
+        TF.resize(n);
+    }
+    
+    void add(int key) {
+        TF[key] = true;
+    }
+    
+    void remove(int key) {
+        TF[key] = false;
+    }
+    
+    bool contains(int key) {
+        return TF[key];
+    }
+};
 
-
-    def __init__(self):
-        self.l={}
-
-    def add(self, key: int) -> None:
-        
-        self.l[key] = 1
-
-    def remove(self, key: int) -> None:
-        try:
-            self.l.pop(key)
-        except:
-            pass
-
-    def contains(self, key: int) -> bool:
-        if key in self.l:
-            return True
-        return False
-
-
-# Your MyHashSet object will be instantiated and called as such:
-# obj = MyHashSet()
-# obj.add(key)
-# obj.remove(key)
-# param_3 = obj.contains(key)
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet* obj = new MyHashSet();
+ * obj->add(key);
+ * obj->remove(key);
+ * bool param_3 = obj->contains(key);
+ */
