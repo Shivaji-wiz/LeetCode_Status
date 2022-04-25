@@ -1,31 +1,60 @@
-// C# IEnumerator interface reference:
-// https://docs.microsoft.com/en-us/dotnet/api/system.collections.ienumerator?view=netframework-4.8
+# Below is the interface for Iterator, which is already defined for you.
+#
+# class Iterator:
+#     def __init__(self, nums):
+#         """
+#         Initializes an iterator object to the beginning of a list.
+#         :type nums: List[int]
+#         """
+#
+#     def hasNext(self):
+#         """
+#         Returns true if the iteration has more elements.
+#         :rtype: bool
+#         """
+#
+#     def next(self):
+#         """
+#         Returns the next element in the iteration.
+#         :rtype: int
+#         """
 
-class PeekingIterator {
-    
-    private IEnumerator<int> _iterator;
-    private bool _hashNext;
-    // iterators refers to the first element of the array.
-    public PeekingIterator(IEnumerator<int> iterator) {
-        // initialize any member here.
-        this._iterator = iterator;
-        _hashNext = true;
-    }
-    
-    // Returns the next element in the iteration without advancing the iterator.
-    public int Peek() {
-        return _iterator.Current;
-    }
-    
-    // Returns the next element in the iteration and advances the iterator.
-    public int Next() {
-        int res = _iterator.Current;
-        this._hashNext = _iterator.MoveNext();
-        return res;
-    }
-    
-    // Returns false if the iterator is refering to the end of the array of true otherwise.
-    public bool HasNext() {
-		return this._hashNext;
-    }
-}
+class PeekingIterator:
+    def __init__(self, iterator):
+        """
+        Initialize your data structure here.
+        :type iterator: Iterator
+        """
+        self.array = iterator.v
+        self.pointer = 0
+        
+
+    def peek(self):
+        """
+        Returns the next element in the iteration without advancing the iterator.
+        :rtype: int
+        """
+        return self.array[self.pointer]
+        
+
+    def next(self):
+        """
+        :rtype: int
+        """
+        self.pointer += 1
+        return self.array[self.pointer - 1]
+        
+
+    def hasNext(self):
+        """
+        :rtype: bool
+        """
+        return self.pointer != len(self.array)
+        
+        
+
+# Your PeekingIterator object will be instantiated and called as such:
+# iter = PeekingIterator(Iterator(nums))
+# while iter.hasNext():
+#     val = iter.peek()   # Get the next element but not advance the iterator.
+#     iter.next()         # Should return the same value as [val].
