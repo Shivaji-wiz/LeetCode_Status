@@ -1,15 +1,24 @@
-class Solution:
-    def sortArrayByParity(self, nums: List[int]) -> List[int]:
-        res = []
-        odd = []
+class Solution {
+public:
+    vector<int> sortArrayByParity(vector<int>& nums) {
+        int n = nums.size();
         
-        for i in range(len(nums)):
-            if nums[i]%2 == 0:
-                res.append(nums[i])
-                
-            else:
-                odd.append(nums[i])
-                
-        res.extend(odd)
-        return res
+        int low = 0;
+        int high = nums.size()-1;
         
+        while(low<=high){
+            if(nums[low]%2!=0 and nums[high]%2==0){
+                swap(nums[low],nums[high]);
+                low++;
+                high--;
+            }
+            else if(nums[high]%2!=0){
+                high--;
+            }
+            else{
+                low++;
+            }
+        }
+        return nums;
+    }
+};
