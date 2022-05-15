@@ -6,10 +6,10 @@ public:
         if(vis[i][j] or image[i][j]!=old_color)return;
         vis[i][j] = 1;
         image[i][j] = newColor;
-        dfs(i+1,j,vis,image,newColor,m,n,old_color);
-        dfs(i-1,j,vis,image,newColor,m,n,old_color);
-        dfs(i,j+1,vis,image,newColor,m,n,old_color);
-        dfs(i,j-1,vis,image,newColor,m,n,old_color);
+        dfs(i+1,j,vis,image,newColor,m,n,old_color); //move left
+        dfs(i-1,j,vis,image,newColor,m,n,old_color); //move right
+        dfs(i,j+1,vis,image,newColor,m,n,old_color); //move down
+        dfs(i,j-1,vis,image,newColor,m,n,old_color); //move up
         
     }
     
