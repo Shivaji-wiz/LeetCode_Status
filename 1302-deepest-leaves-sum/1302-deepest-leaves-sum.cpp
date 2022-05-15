@@ -12,27 +12,27 @@
 class Solution {
 public:
     int sum = 0;
+    int maxdepth = 0;
     
-    int maxdepth(TreeNode *root){
-        if(root == NULL)return 0;
-        
-        return  1 + max(maxdepth(root->left),maxdepth(root->right));
-    }
+
     
-    void findsum(TreeNode *root,int curr_depth,int maxdepth){
+    void findsum(TreeNode *root,int curr_depth){
         if(root!=NULL){
+            if(curr_depth > maxdepth){
+                sum = 0;
+                maxdepth = curr_depth;
+            }
             if(curr_depth == maxdepth){
                 sum += root->val;
             }
             
-            findsum(root->left,curr_depth+1,maxdepth);
-            findsum(root->right,curr_depth+1,maxdepth);
+            findsum(root->left,curr_depth+1);
+            findsum(root->right,curr_depth+1);
         }
     }
     
     int deepestLeavesSum(TreeNode* root) {
-        int mxdepth = maxdepth(root);
-        findsum(root,1,mxdepth);
+        findsum(root,1);
         return sum;
     }
 };
