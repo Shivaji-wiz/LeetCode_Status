@@ -1,6 +1,12 @@
 class Solution {
 public:
     int removePalindromeSub(string s) {
-        return 2-(s==string(s.rbegin(),s.rend()));
+        if(s.empty()) return 0;
+        int n = s.size(), i = 0, j = n - 1;
+        while(i <= j){
+            if(s[i] != s[j]) return 2;
+            else i++; --j;
+        }
+        return 1;
     }
 };
