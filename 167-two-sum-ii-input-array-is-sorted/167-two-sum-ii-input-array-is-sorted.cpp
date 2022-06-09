@@ -7,7 +7,7 @@ public:
          while(l < r){
               if(arr[l] + arr[r] == target){
        
-              return {l+1,r+1};;
+              return {l+1,r+1};
             }
               else if(arr[l] + arr[r] > target){
                    r--;
@@ -18,4 +18,4 @@ public:
          }
      return {};        
     }
-};
+}; 
