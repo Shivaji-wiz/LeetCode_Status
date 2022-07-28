@@ -10,48 +10,70 @@
  */
 class Solution {
 public:
-    ListNode* merge(ListNode* l,ListNode* r){
-        if(l!=nullptr and r!=nullptr){
-            if(l->val<=r->val){
-                l->next = merge(l->next,r);
-                return l;
-            }
-            else{
-                r->next = merge(l,r->next);
-                return r;
-            }
-        }
-        return (l==nullptr?r:l);
-    }
-    
-    ListNode* merge_sort(ListNode* head){
-        if(head==nullptr or head->next==nullptr){
-            return head;
-        }
-        
-        if(head->next->next==nullptr){
-            if(head->next->val<head->val){
-                ListNode* next_node = head->next;
-                next_node->next = head;
-                head->next = nullptr;
-                head = next_node;
-            }
-            return head;
-        }
-        ListNode *slow = head,*fast = head;
-        while(fast!=nullptr and fast->next!=nullptr){
-              slow = slow->next;
-            fast = fast->next->next;
-            
-        }
-        ListNode* node2 = merge_sort(slow->next);
-        slow->next = nullptr;
-        ListNode* node1 = merge_sort(head);
-        
-        return merge(node1,node2);
-    }
-    
     ListNode* sortList(ListNode* head) {
-        return merge_sort(head);
+        if(head == NULL || head ->next == NULL)
+            return head;
+        
+        
+        ListNode *temp = NULL;
+        ListNode *slow = head;
+        ListNode *fast = head;
+        
+        //middle of linked list
+        while(fast !=  NULL && fast -> next != NULL){
+            temp = slow;
+            slow = slow->next;          
+            fast = fast ->next ->next;  
+            
+        }   
+        temp -> next = NULL;            
+        
+        ListNode* l1 = sortList(head);  //2   
+        ListNode* l2 = sortList(slow);  //1 
+        
+        return mergelist(l1, l2);         
+            
+    }
+    
+
+    ListNode* mergelist(ListNode *head1, ListNode *head2)
+    {
+        ListNode *fh=NULL, *ft=NULL;
+    while(head1!=NULL && head2!=NULL){
+        
+        if(fh== NULL && ft==NULL){
+            if(head1->val>head2->val){
+                fh=head2;
+                ft=head2;
+                head2=head2->next;
+            }else{
+                fh=head1;
+                ft=head1;
+                head1=head1->next;
+            }
+        }
+        if(head1 && head2) {
+            if(head1->val<head2->val){
+                ft->next=head1;
+                ft=ft->next;
+                head1=head1->next;
+
+            }else{
+                ft->next=head2;
+                ft=ft->next;
+                head2=head2->next;
+            }
+        }
+        
+    }
+    
+    if(head1!=NULL){
+        ft->next=head1;
+    }
+    if(head2!=NULL){
+        ft->next=head2;
+    }
+    
+    return fh;
     }
 };
