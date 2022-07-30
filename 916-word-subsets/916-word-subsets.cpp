@@ -21,7 +21,7 @@ public:
             bool valid = true;
             for(int i=0;i<26 && valid;i++)
                 if(freq[i]<universal[i]) valid=false;
-            if(valid) ans.emplace_back(str);
+            if(valid) ans.push_back(str);
         }
         return ans;        
     }
