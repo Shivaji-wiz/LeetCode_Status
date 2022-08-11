@@ -17,35 +17,24 @@ public:
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        //step 1 - creating dummy node and inserting in between two nodes.
-        Node *iter = head;
-        Node *front = head;
-        while(iter!=NULL){
-            front = iter->next;
-            Node *copy = new Node(iter->val);
-            iter->next = copy;
-            copy->next = front;
-            iter = front;
+        unordered_map<Node*,Node*> m;
+        Node *temp = head;
+        
+        //mapping original nodes to their deep copies
+        while(temp!=NULL){
+            Node *dum = new Node(temp->val);
+            m[temp] = dum;
+            temp=temp->next;
         }
-        // step 2 - pointing random nodes in deep copy
-        iter = head;
-        while(iter!=NULL){
-            if(iter->random!=NULL){
-                iter->next->random = iter->random->next;
-            }
-            iter = iter->next->next;
+        
+        //mapping the connections next and random
+        temp = head;
+        while(temp!=NULL){
+            Node *dum = m[temp];
+            dum -> next = m[temp->next];
+            dum -> random = m[temp -> random];
+            temp = temp->next;
         }
-        //separating copy and original linked list
-        iter = head;
-        Node *ph = new Node(0);
-        Node *copy = ph;
-        while(iter!=NULL){
-            front = iter->next->next;
-            copy->next = iter->next;
-            iter->next = front;
-            copy = copy->next;
-            iter=iter->next;
-        }
-        return ph->next;
+        return m[head];
     }
 };
